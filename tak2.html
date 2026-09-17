@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Registration Form</title>
+
+    <style>
+        body {
+            background-color: MistyRose;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .form-table {
+            background-color: white;
+            border: 2px solid black;
+        }
+
+        .form-table td {
+            padding: 10px;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        h2 {
+            color: darkred;
+            text-align: center;
+        }
+
+        input, select, textarea {
+            padding: 6px;
+            margin: 3px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            padding: 10px 25px;
+            background-color: darkblue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="reset"] {
+            background-color: darkred;
+        }
+
+        .student-table {
+            background-color: white;
+            border: 2px solid black;
+        }
+
+        .student-table th {
+            background-color: darkblue;
+            color: white;
+            padding: 10px;
+        }
+
+        .student-table td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        .media {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        iframe {
+            border: 2px solid black;
+        }
+
+        pre {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+            width: 90%;
+            margin: 20px auto;
+            overflow-x: auto;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<form>
+
+<table class="form-table" align="center" width="700">
+
+    <tr>
+        <td colspan="2" align="center">
+            <h1>STUDENT REGISTRATION FORM</h1>
+        </td>
+    </tr>
+
+    <tr>
+        <td>STUDENT NAME</td>
+        <td>
+            <input type="text" placeholder="First Name" required>
+            <input type="text" placeholder="Last Name" required>
+        </td>
+    </tr>
+
+    <tr>
+        <td>FATHER'S NAME</td>
+        <td>
+            <input type="text" size="42" placeholder="Father's Name" required>
+        </td>
+    </tr>
+
+    <tr>
+        <td>PROFILE PICTURE</td>
+        <td>
+            <input type="file" accept="image/*">
+        </td>
+    </tr>
+
+    <tr>
+        <td>PASSWORD</td>
+        <td>
+            <input type="password" placeholder="Enter Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+        </td>
+    </tr>
+
+    <tr>
+        <td>DATE OF BIRTH</td>
+        <td>
+            <input type="date" required>
+        </td>
+    </tr>
+
+    <tr>
+        <td>MOBILE NO:</td>
+        <td>
+            <input type="tel" value="+92" size="3">
+            <input type="tel" size="35" placeholder="Mobile Number">
+        </td>
+    </tr>
+
+    <tr>
+        <td>EMAIL</td>
+        <td>
+            <input type="email" size="42" placeholder="Email" required>
+        </td>
+    </tr>
+
+    <tr>
+        <td>CITY</td>
+        <td>
+            <input type="text" size="21" placeholder="City">
+        </td>
+    </tr>
+
+    <tr>
+        <td>ADDRESS</td>
+        <td>
+            <textarea rows="3" cols="40"
+            placeholder="Enter Address"></textarea>
+        </td>
+    </tr>
+
+    <tr>
+        <td>GENDER</td>
+        <td>
+            <input type="radio" name="gender"> MALE
+            <input type="radio" name="gender"> FEMALE
+        </td>
+    </tr>
+
+    <tr>
+        <td>PREVIOUS EDUCATION</td>
+        <td>
+            <select>
+                <option>Select Education</option>
+                <option>FSc Pre Medical</option>
+                <option>FSc Pre Engineering</option>
+                <option>FSc Computer Science</option>
+                <option>ICS</option>
+                <option>Other</option>
+            </select>
+        </td>
+    </tr>
+
+    <tr>
+        <td>DEPARTMENT</td>
+        <td>
+            <select>
+                <option>Select Department</option>
+                <option>Computer Science</option>
+                <option>Software Engineering</option>
+                <option>Information Technology</option>
+                <option>Data Science</option>
+                <option>Artificial Intelligence</option>
+            </select>
+        </td>
+    </tr>
+
+    <tr>
+        <td>SKILLS</td>
+        <td>
+            <input type="checkbox"> COMPUTER SCIENCE
+            <br>
+            <input type="checkbox"> SOFTWARE ENGINEERING
+            <br>
+            <input type="checkbox"> WEB DEVELOPMENT
+            <br>
+            <input type="checkbox"> DATA SCIENCE
+            <br>
+            <input type="checkbox"> ARTIFICIAL INTELLIGENCE
+        </td>
+    </tr>
+
+    <tr>
+        <td>WHY DO YOU WANT TO JOIN?</td>
+        <td>
+            <textarea rows="5" cols="40"
+            placeholder="Tell us why you want to join the university"></textarea>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2" align="center">
+            <input type="submit" value="SUBMIT">
+            <input type="reset" value="RESET">
+        </td>
+    </tr>
+
+</table>
+
+</form>
+
+<br>
+
+<h2>STUDENT INFORMATION TABLE</h2>
+
+<table class="student-table" align="center" width="700">
+
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Department</th>
+    </tr>
+
+    <tr>
+        <td>Ali</td>
+        <td>Khan</td>
+        <td>ali@gmail.com</td>
+        <td>Computer Science</td>
+    </tr>
+
+    <tr>
+        <td>Ahmad</td>
+        <td>Shah</td>
+        <td>ahmad@gmail.com</td>
+        <td>Software Engineering</td>
+    </tr>
+
+    <tr>
+        <td>Hamza</td>
+        <td>Ali</td>
+        <td>hamza@gmail.com</td>
+        <td>Artificial Intelligence</td>
+    </tr>
+
+    <tr>
+        <td>Usman</td>
+        <td>Khan</td>
+        <td>usman@gmail.com</td>
+        <td>Data Science</td>
+    </tr>
+
+    <tr>
+        <td>Bilal</td>
+        <td>Ahmad</td>
+        <td>bilal@gmail.com</td>
+        <td>Information Technology</td>
+    </tr>
+
+</table>
+
+<br>
+
+<div class="media">
+
+    <h2>University Video</h2>
+
+    <iframe width="560" height="315"
+    src="https://www.youtube.com/embed/F_TtmgHoFXI?si=-WqPgHwu5LsqfSVG"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+    </iframe>
+
+</div>
+
+<hr>
+
+<h2>COMPLETE HTML CODE</h2>
+
+<pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+
+&lt;head&gt;
+    &lt;title&gt;Student Registration Form&lt;/title&gt;
+
+    &lt;style&gt;
+        body {
+            background-color: MistyRose;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .form-table {
+            background-color: white;
+            border: 2px solid black;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        h2 {
+            color: darkred;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;form&gt;
+
+    &lt;h1&gt;STUDENT REGISTRATION FORM&lt;/h1&gt;
+
+    &lt;input type="text" placeholder="First Name"&gt;
+    &lt;input type="text" placeholder="Last Name"&gt;
+
+    &lt;br&gt;&lt;br&gt;
+
+    &lt;input type="text" placeholder="Father's Name"&gt;
+
+    &lt;br&gt;&lt;br&gt;
+
+    &lt;input type="file" accept="image/*"&gt;
+
+    &lt;br&gt;&lt;br&gt;
+
+    &lt;input type="password" placeholder="Enter Password"&gt;
+
+    &lt;br&gt;&lt;br&gt;
+
+    &lt;input type="date"&gt;
+
+    &lt;br&gt;&lt;br&gt;
+
+    &lt;input type="email" placeholder="Email"&gt;
+
+    &lt;br&gt;&lt;br&gt;
+
+    &lt;textarea placeholder="Why do you want to join the university?"&gt;&lt;/textarea&gt;
+
+    &lt;br&gt;&lt;br&gt;
+
+    &lt;input type="submit" value="SUBMIT"&gt;
+    &lt;input type="reset" value="RESET"&gt;
+
+&lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+</body>
+</html>
