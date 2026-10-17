@@ -3,23 +3,117 @@
 
 <head>
     <title>My Personal Web Page</title>
+
+    <style>
+        body {
+            background-color: #eaf2f8;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px 20px;
+        }
+
+        .intro {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .profile-box {
+            background-color: white;
+            width: 350px;
+            max-width: 100%;
+            margin: 0 auto 30px;
+            padding: 25px;
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            box-sizing: border-box;
+        }
+
+        .profile-box table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .profile-box td {
+            padding: 10px 5px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .profile-box tr:last-child td {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .value {
+            color: #34495e;
+        }
+
+        .buttons a {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            margin: 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .buttons a:hover {
+            background-color: #21618c;
+        }
+    </style>
 </head>
 
 <body>
 
-     <p>
-        Name: <b>MUHAMMAD HUSSAIN</b><br>
-        Registration Number: <b>24MDBCS636</b><br>
-        Department: <b>Computer Science</b><br>
-        Semester: <b>5<sup>th</sup></b>
+    <p class="intro">
+        Respected Sir, these are all my tasks and assignments.
+        Please click on the buttons below to access Task 1,
+        Task 2, and Assignment 1.
     </p>
 
-   <a href="./Task1.html">Task 1</a>
-    <br/>
-   <a href="./taks2.html" >Task 2</a>
-     <br/>
-    <a href="./assigment1.html" >assigment1</a>
-    
+    <div class="profile-box">
+        <table>
+            <tr>
+                <td class="label">Name</td>
+                <td class="value"><b>MUHAMMAD HUSSAIN</b></td>
+            </tr>
+
+            <tr>
+                <td class="label">Registration Number</td>
+                <td class="value"><b>24MDBCS636</b></td>
+            </tr>
+
+            <tr>
+                <td class="label">Department</td>
+                <td class="value"><b>Computer Science</b></td>
+            </tr>
+
+            <tr>
+                <td class="label">Semester</td>
+                <td class="value"><b>5<sup>th</sup></b></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="buttons">
+        <a href="./Task1.html">Task 1</a>
+
+        <a href="./taks2.html">Task 2</a>
+
+        <a href="./assigment1.html">Assignment 1</a>
+    </div>
+
 </body>
 
 </html>
