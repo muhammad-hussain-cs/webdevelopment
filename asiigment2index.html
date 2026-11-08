@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Event Registration | University Event</title>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  body { background: linear-gradient(135deg, #eef2ff, #fdf2f8); font-family: 'Segoe UI', Arial, sans-serif; min-height: 100vh; }
+  .main-card { border: none; border-radius: 20px; box-shadow: 0 12px 35px rgba(0,0,0,.12); overflow: hidden; transition: background .4s, color .4s; }
+  .card-header-custom { background: linear-gradient(90deg, #4f46e5, #ec4899); color: #fff; padding: 28px 24px; text-align: center; }
+  .card-header-custom h1 { font-size: 1.9rem; font-weight: 800; margin: 0; }
+  .card-header-custom p { opacity: .92; margin: 8px 0 0; }
+  .badge-event { background: #fff; color: #4f46e5; font-weight: 700; border-radius: 20px; padding: 5px 12px; font-size: .8rem; }
+  .btn-theme { background: #111827; color: #fff; }
+  .event-item { cursor: pointer; transition: transform .2s, background .2s; border-left: 4px solid #4f46e5; }
+  .event-item:hover { background: #eef2ff; }
+  #messageArea { min-height: 58px; }
+  #eventDetails { display: none; }
+  #instructions { background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 12px; padding: 14px 16px; }
+  .theme-1 { background: #ffffff !important; color: #111827 !important; }
+  .theme-2 { background: #111827 !important; color: #f9fafb !important; }
+  .theme-2 #instructions, .theme-2 #instructions li { color: #111827 !important; }
+  .theme-2 .text-muted { color: #d1d5db !important; }
+  .theme-2 .bg-light { background: #1f2937 !important; color: #f9fafb !important; }
+  .theme-2 .form-label, .theme-2 h5 { color: #f9fafb !important; }
+  .theme-3 { background: #ecfdf5 !important; color: #064e3b !important; }
+  .theme-4 { background: #fef3c7 !important; color: #78350f !important; }
+  pre.code-block { background: #0f172a; color: #e2e8f0; padding: 20px; border-radius: 12px; font-size: 12px; max-height: 520px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+  .feature-tag { font-size: .72rem; font-weight: 700; letter-spacing: .04em; }
+  footer { color: #6b7280; }
+</style>
+</head>
+<body>
+<div class="container py-4 py-md-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+
+      <!-- ================= REGISTRATION CARD ================= -->
+      <div class="card main-card theme-1" id="registrationCard">
+        <div class="card-header-custom" id="cardHeading">
+          <span class="badge-event">🎓 UNIVERSITY EVENT 2026</span>
+          <h1 class="mt-2" id="mainTitle">Student Event Registration</h1>
+          <p>Join our biggest campus events — register in 30 seconds, get a personalised confirmation instantly.</p>
+        </div>
+
+        <div class="card-body p-4 p-md-5">
+          <!-- jQuery: Show / Hide Instructions -->
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <button type="button" class="btn btn-outline-primary btn-sm" id="toggleInstructionsBtn">Hide Instructions</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="toggleDetailsBtn">Show Event Details ▼</button>
+            <button type="button" class="btn btn-theme btn-sm" id="themeBtn">🎨 Change Theme</button>
+          </div>
+
+          <div id="instructions">
+            <strong>📋 How to register:</strong>
+            <ol class="mb-0 mt-1">
+              <li>Enter your full name and university email.</li>
+              <li>Choose one event from the dropdown.</li>
+              <li>Click <strong>Register Now</strong> — you will see a personalised message below.</li>
+              <li>Click <strong>Add to My Events</strong> to add it to your list.</li>
+            </ol>
+          </div>
+
+          <!-- jQuery Effect: slideToggle -->
+          <div id="eventDetails" class="alert alert-info mt-3">
+            <strong>✨ Event Details:</strong>
+            <ul class="mb-0 mt-1">
+              <li><strong>Tech Fest 2026</strong> — 12 Dec, Main Auditorium, 10 AM</li>
+              <li><strong>Cultural Night</strong> — 14 Dec, Open Air Theatre, 6 PM</li>
+              <li><strong>Sports Gala</strong> — 16 Dec, Sports Complex, 9 AM</li>
+              <li><strong>AI Workshop</strong> — 18 Dec, CS Lab 2, 11 AM</li>
+              <li><strong>Coding Hackathon</strong> — 20 Dec, Innovation Hub, 9 AM</li>
+            </ul>
+            <small>All events are free for registered students. Bring your student ID card.</small>
+          </div>
+
+          <hr>
+
+          <!-- FORM -->
+          <form id="registrationForm" novalidate>
+            <div class="mb-3">
+              <label for="studentName" class="form-label fw-bold">Student Name *</label>
+              <input type="text" class="form-control form-control-lg" id="studentName" placeholder="e.g. Muhammad Hussain">
+            </div>
+            <div class="mb-3">
+              <label for="studentEmail" class="form-label fw-bold">Email Address *</label>
+              <input type="email" class="form-control form-control-lg" id="studentEmail" placeholder="e.g. muhammad@university.edu.pk">
+            </div>
+            <div class="mb-3">
+              <label for="eventSelect" class="form-label fw-bold">Select Event *</label>
+              <select class="form-select form-select-lg" id="eventSelect">
+                <option value="">-- Choose an event --</option>
+                <option value="Tech Fest 2026">Tech Fest 2026</option>
+                <option value="Cultural Night">Cultural Night</option>
+                <option value="Sports Gala">Sports Gala</option>
+                <option value="AI Workshop">AI Workshop</option>
+                <option value="Coding Hackathon">Coding Hackathon</option>
+              </select>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex">
+              <button type="submit" class="btn btn-primary btn-lg flex-fill" id="registerBtn">Register Now</button>
+              <button type="button" class="btn btn-success btn-lg flex-fill" id="addEventBtn">+ Add to My Events</button>
+              <button type="button" class="btn btn-outline-danger btn-lg" id="resetBtn">Reset</button>
+            </div>
+          </form>
+
+          <!-- MESSAGE AREA -->
+          <div id="messageArea" class="mt-4"></div>
+
+          <!-- DYNAMIC CONTENT: Registered list -->
+          <h5 class="mt-4">📌 My Registered Events <span class="badge bg-primary" id="eventCount">0</span></h5>
+          <p class="text-muted small">Hover over an event below to highlight it (jQuery mouseover). Click “Add to My Events” after registering.</p>
+          <ul class="list-group" id="myEventsList">
+            <li class="list-group-item event-item text-muted">No events added yet — register and click “Add to My Events”.</li>
+          </ul>
+
+          <div class="mt-4 p-3 bg-light rounded">
+            <strong>Features implemented in this component:</strong>
+            <div class="d-flex flex-wrap gap-1 mt-2">
+              <span class="badge bg-primary feature-tag">JS: VALIDATION</span>
+              <span class="badge bg-success feature-tag">JS: DYNAMIC MESSAGE</span>
+              <span class="badge bg-dark feature-tag">JS: CHANGE THEME</span>
+              <span class="badge bg-warning text-dark feature-tag">jQuery: SHOW / HIDE</span>
+              <span class="badge bg-info text-dark feature-tag">jQuery: slideToggle()</span>
+              <span class="badge bg-danger feature-tag">jQuery: DYNAMIC LIST</span>
+              <span class="badge bg-secondary feature-tag">jQuery: mouseover + #id / .class</span>
+            </div>
+          </div>
+
+          <p class="text-center text-muted small mt-4 mb-0">Submitted by: <strong>Muhammad Hussain</strong> &nbsp;|&nbsp; Registration No: <strong>24MDBCS636</strong></p>
+        </div>
+      </div>
+
+      <!-- ============ COMPLETE SOURCE CODE (for 1 mark) ============ -->
+      <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+          <h3>💻 Complete Source Code</h3>
+          <p class="text-muted">The complete code used to create this component is shown below, directly on this live page:</p>
+          <pre class="code-block" id="sourceCode">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Student Event Registration | University Event&lt;/title&gt;
+&lt;!-- Bootstrap 5 CSS --&gt;
+&lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;!-- jQuery --&gt;
+&lt;script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+  body { background: linear-gradient(135deg, #eef2ff, #fdf2f8); font-family: &#x27;Segoe UI&#x27;, Arial, sans-serif; min-height: 100vh; }
+  .main-card { border: none; border-radius: 20px; box-shadow: 0 12px 35px rgba(0,0,0,.12); overflow: hidden; transition: background .4s, color .4s; }
+  .card-header-custom { background: linear-gradient(90deg, #4f46e5, #ec4899); color: #fff; padding: 28px 24px; text-align: center; }
+  .card-header-custom h1 { font-size: 1.9rem; font-weight: 800; margin: 0; }
+  .card-header-custom p { opacity: .92; margin: 8px 0 0; }
+  .badge-event { background: #fff; color: #4f46e5; font-weight: 700; border-radius: 20px; padding: 5px 12px; font-size: .8rem; }
+  .btn-theme { background: #111827; color: #fff; }
+  .event-item { cursor: pointer; transition: transform .2s, background .2s; border-left: 4px solid #4f46e5; }
+  .event-item:hover { background: #eef2ff; }
+  #messageArea { min-height: 58px; }
+  #eventDetails { display: none; }
+  #instructions { background: #fffbeb; border: 1px dashed #f59e0b; border-radius: 12px; padding: 14px 16px; }
+  .theme-1 { background: #ffffff !important; color: #111827 !important; }
+  .theme-2 { background: #111827 !important; color: #f9fafb !important; }
+  .theme-2 #instructions, .theme-2 #instructions li { color: #111827 !important; }
+  .theme-2 .text-muted { color: #d1d5db !important; }
+  .theme-2 .bg-light { background: #1f2937 !important; color: #f9fafb !important; }
+  .theme-2 .form-label, .theme-2 h5 { color: #f9fafb !important; }
+  .theme-3 { background: #ecfdf5 !important; color: #064e3b !important; }
+  .theme-4 { background: #fef3c7 !important; color: #78350f !important; }
+  pre.code-block { background: #0f172a; color: #e2e8f0; padding: 20px; border-radius: 12px; font-size: 12px; max-height: 520px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+  .feature-tag { font-size: .72rem; font-weight: 700; letter-spacing: .04em; }
+  footer { color: #6b7280; }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;container py-4 py-md-5&quot;&gt;
+  &lt;div class=&quot;row justify-content-center&quot;&gt;
+    &lt;div class=&quot;col-lg-8 col-md-10&quot;&gt;
+
+      &lt;!-- ================= REGISTRATION CARD ================= --&gt;
+      &lt;div class=&quot;card main-card theme-1&quot; id=&quot;registrationCard&quot;&gt;
+        &lt;div class=&quot;card-header-custom&quot; id=&quot;cardHeading&quot;&gt;
+          &lt;span class=&quot;badge-event&quot;&gt;🎓 UNIVERSITY EVENT 2026&lt;/span&gt;
+          &lt;h1 class=&quot;mt-2&quot; id=&quot;mainTitle&quot;&gt;Student Event Registration&lt;/h1&gt;
+          &lt;p&gt;Join our biggest campus events — register in 30 seconds, get a personalised confirmation instantly.&lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;card-body p-4 p-md-5&quot;&gt;
+          &lt;!-- jQuery: Show / Hide Instructions --&gt;
+          &lt;div class=&quot;d-flex flex-wrap gap-2 mb-3&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-primary btn-sm&quot; id=&quot;toggleInstructionsBtn&quot;&gt;Hide Instructions&lt;/button&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-secondary btn-sm&quot; id=&quot;toggleDetailsBtn&quot;&gt;Show Event Details ▼&lt;/button&gt;
+            &lt;button type=&quot;button&quot; class=&quot;btn btn-theme btn-sm&quot; id=&quot;themeBtn&quot;&gt;🎨 Change Theme&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;div id=&quot;instructions&quot;&gt;
+            &lt;strong&gt;📋 How to register:&lt;/strong&gt;
+            &lt;ol class=&quot;mb-0 mt-1&quot;&gt;
+              &lt;li&gt;Enter your full name and university email.&lt;/li&gt;
+              &lt;li&gt;Choose one event from the dropdown.&lt;/li&gt;
+              &lt;li&gt;Click &lt;strong&gt;Register Now&lt;/strong&gt; — you will see a personalised message below.&lt;/li&gt;
+              &lt;li&gt;Click &lt;strong&gt;Add to My Events&lt;/strong&gt; to add it to your list.&lt;/li&gt;
+            &lt;/ol&gt;
+          &lt;/div&gt;
+
+          &lt;!-- jQuery Effect: slideToggle --&gt;
+          &lt;div id=&quot;eventDetails&quot; class=&quot;alert alert-info mt-3&quot;&gt;
+            &lt;strong&gt;✨ Event Details:&lt;/strong&gt;
+            &lt;ul class=&quot;mb-0 mt-1&quot;&gt;
+              &lt;li&gt;&lt;strong&gt;Tech Fest 2026&lt;/strong&gt; — 12 Dec, Main Auditorium, 10 AM&lt;/li&gt;
+              &lt;li&gt;&lt;strong&gt;Cultural Night&lt;/strong&gt; — 14 Dec, Open Air Theatre, 6 PM&lt;/li&gt;
+              &lt;li&gt;&lt;strong&gt;Sports Gala&lt;/strong&gt; — 16 Dec, Sports Complex, 9 AM&lt;/li&gt;
+              &lt;li&gt;&lt;strong&gt;AI Workshop&lt;/strong&gt; — 18 Dec, CS Lab 2, 11 AM&lt;/li&gt;
+              &lt;li&gt;&lt;strong&gt;Coding Hackathon&lt;/strong&gt; — 20 Dec, Innovation Hub, 9 AM&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;small&gt;All events are free for registered students. Bring your student ID card.&lt;/small&gt;
+          &lt;/div&gt;
+
+          &lt;hr&gt;
+
+          &lt;!-- FORM --&gt;
+          &lt;form id=&quot;registrationForm&quot; novalidate&gt;
+            &lt;div class=&quot;mb-3&quot;&gt;
+              &lt;label for=&quot;studentName&quot; class=&quot;form-label fw-bold&quot;&gt;Student Name *&lt;/label&gt;
+              &lt;input type=&quot;text&quot; class=&quot;form-control form-control-lg&quot; id=&quot;studentName&quot; placeholder=&quot;e.g. Muhammad Hussain&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;mb-3&quot;&gt;
+              &lt;label for=&quot;studentEmail&quot; class=&quot;form-label fw-bold&quot;&gt;Email Address *&lt;/label&gt;
+              &lt;input type=&quot;email&quot; class=&quot;form-control form-control-lg&quot; id=&quot;studentEmail&quot; placeholder=&quot;e.g. muhammad@university.edu.pk&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;mb-3&quot;&gt;
+              &lt;label for=&quot;eventSelect&quot; class=&quot;form-label fw-bold&quot;&gt;Select Event *&lt;/label&gt;
+              &lt;select class=&quot;form-select form-select-lg&quot; id=&quot;eventSelect&quot;&gt;
+                &lt;option value=&quot;&quot;&gt;-- Choose an event --&lt;/option&gt;
+                &lt;option value=&quot;Tech Fest 2026&quot;&gt;Tech Fest 2026&lt;/option&gt;
+                &lt;option value=&quot;Cultural Night&quot;&gt;Cultural Night&lt;/option&gt;
+                &lt;option value=&quot;Sports Gala&quot;&gt;Sports Gala&lt;/option&gt;
+                &lt;option value=&quot;AI Workshop&quot;&gt;AI Workshop&lt;/option&gt;
+                &lt;option value=&quot;Coding Hackathon&quot;&gt;Coding Hackathon&lt;/option&gt;
+              &lt;/select&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;d-grid gap-2 d-md-flex&quot;&gt;
+              &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary btn-lg flex-fill&quot; id=&quot;registerBtn&quot;&gt;Register Now&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-success btn-lg flex-fill&quot; id=&quot;addEventBtn&quot;&gt;+ Add to My Events&lt;/button&gt;
+              &lt;button type=&quot;button&quot; class=&quot;btn btn-outline-danger btn-lg&quot; id=&quot;resetBtn&quot;&gt;Reset&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+
+          &lt;!-- MESSAGE AREA --&gt;
+          &lt;div id=&quot;messageArea&quot; class=&quot;mt-4&quot;&gt;&lt;/div&gt;
+
+          &lt;!-- DYNAMIC CONTENT: Registered list --&gt;
+          &lt;h5 class=&quot;mt-4&quot;&gt;📌 My Registered Events &lt;span class=&quot;badge bg-primary&quot; id=&quot;eventCount&quot;&gt;0&lt;/span&gt;&lt;/h5&gt;
+          &lt;p class=&quot;text-muted small&quot;&gt;Hover over an event below to highlight it (jQuery mouseover). Click “Add to My Events” after registering.&lt;/p&gt;
+          &lt;ul class=&quot;list-group&quot; id=&quot;myEventsList&quot;&gt;
+            &lt;li class=&quot;list-group-item event-item text-muted&quot;&gt;No events added yet — register and click “Add to My Events”.&lt;/li&gt;
+          &lt;/ul&gt;
+
+          &lt;div class=&quot;mt-4 p-3 bg-light rounded&quot;&gt;
+            &lt;strong&gt;Features implemented in this component:&lt;/strong&gt;
+            &lt;div class=&quot;d-flex flex-wrap gap-1 mt-2&quot;&gt;
+              &lt;span class=&quot;badge bg-primary feature-tag&quot;&gt;JS: VALIDATION&lt;/span&gt;
+              &lt;span class=&quot;badge bg-success feature-tag&quot;&gt;JS: DYNAMIC MESSAGE&lt;/span&gt;
+              &lt;span class=&quot;badge bg-dark feature-tag&quot;&gt;JS: CHANGE THEME&lt;/span&gt;
+              &lt;span class=&quot;badge bg-warning text-dark feature-tag&quot;&gt;jQuery: SHOW / HIDE&lt;/span&gt;
+              &lt;span class=&quot;badge bg-info text-dark feature-tag&quot;&gt;jQuery: slideToggle()&lt;/span&gt;
+              &lt;span class=&quot;badge bg-danger feature-tag&quot;&gt;jQuery: DYNAMIC LIST&lt;/span&gt;
+              &lt;span class=&quot;badge bg-secondary feature-tag&quot;&gt;jQuery: mouseover + #id / .class&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;p class=&quot;text-center text-muted small mt-4 mb-0&quot;&gt;Submitted by: &lt;strong&gt;Muhammad Hussain&lt;/strong&gt; &amp;nbsp;|&amp;nbsp; Registration No: &lt;strong&gt;24MDBCS636&lt;/strong&gt;&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- ============ COMPLETE SOURCE CODE (for 1 mark) ============ --&gt;
+      &lt;div class=&quot;card mt-4 shadow-sm&quot;&gt;
+        &lt;div class=&quot;card-body&quot;&gt;
+          &lt;h3&gt;💻 Complete Source Code&lt;/h3&gt;
+          &lt;p class=&quot;text-muted&quot;&gt;The complete code used to create this component is shown below, directly on this live page:&lt;/p&gt;
+          &lt;pre class=&quot;code-block&quot; id=&quot;sourceCode&quot;&gt;[Complete source code is displayed in this section on the live page]&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;footer class=&quot;text-center mt-4 small&quot;&gt;Student Event Registration Component — HTML • CSS • Bootstrap • JavaScript • jQuery&lt;/footer&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+// ==================== JAVASCRIPT (Vanilla JS) ====================
+// 1. INPUT VALIDATION (2 Marks) + 2. DYNAMIC MESSAGE (2 Marks)
+document.getElementById(&#x27;registrationForm&#x27;).addEventListener(&#x27;submit&#x27;, function(e) {
+  e.preventDefault();
+  var name = document.getElementById(&#x27;studentName&#x27;).value.trim();
+  var email = document.getElementById(&#x27;studentEmail&#x27;).value.trim();
+  var eventName = document.getElementById(&#x27;eventSelect&#x27;).value;
+  var msg = document.getElementById(&#x27;messageArea&#x27;);
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (name === &#x27;&#x27; || email === &#x27;&#x27;) {
+    msg.innerHTML = &#x27;&lt;div class=&quot;alert alert-danger&quot;&gt;&lt;strong&gt;❌ Error:&lt;/strong&gt; Please fill in both your Name and Email. Required fields cannot be empty.&lt;/div&gt;&#x27;;
+    return;
+  }
+  if (!emailPattern.test(email)) {
+    msg.innerHTML = &#x27;&lt;div class=&quot;alert alert-danger&quot;&gt;&lt;strong&gt;❌ Error:&lt;/strong&gt; Please enter a valid email address, e.g. name@university.edu.pk&lt;/div&gt;&#x27;;
+    return;
+  }
+  if (eventName === &#x27;&#x27;) {
+    msg.innerHTML = &#x27;&lt;div class=&quot;alert alert-danger&quot;&gt;&lt;strong&gt;❌ Error:&lt;/strong&gt; Please select an event from the dropdown.&lt;/div&gt;&#x27;;
+    return;
+  }
+  // Success - personalised dynamic message
+  msg.innerHTML = &#x27;&lt;div class=&quot;alert alert-success&quot;&gt;&lt;strong&gt;🎉 Registration Successful!&lt;/strong&gt;&lt;br&gt;Welcome, &lt;strong&gt;&#x27; + name + &#x27;&lt;/strong&gt;! You have successfully registered for &lt;strong&gt;&#x27; + eventName + &#x27;&lt;/strong&gt;. A confirmation will be sent to &lt;strong&gt;&#x27; + email + &#x27;&lt;/strong&gt;.&lt;/div&gt;&#x27;;
+});
+
+// 3. STYLE MANIPULATION (1 Mark) - Vanilla JS, cycles card theme
+var themes = [&#x27;theme-1&#x27;, &#x27;theme-2&#x27;, &#x27;theme-3&#x27;, &#x27;theme-4&#x27;];
+var themeIndex = 0;
+document.getElementById(&#x27;themeBtn&#x27;).addEventListener(&#x27;click&#x27;, function() {
+  var card = document.getElementById(&#x27;registrationCard&#x27;);
+  card.classList.remove(themes[themeIndex]);
+  themeIndex = (themeIndex + 1) % themes.length;
+  card.classList.add(themes[themeIndex]);
+  document.getElementById(&#x27;mainTitle&#x27;).style.color = themeIndex === 1 ? &#x27;#fbbf24&#x27; : &#x27;&#x27;;
+});
+
+// Reset button (Vanilla JS)
+document.getElementById(&#x27;resetBtn&#x27;).addEventListener(&#x27;click&#x27;, function() {
+  document.getElementById(&#x27;registrationForm&#x27;).reset();
+  document.getElementById(&#x27;messageArea&#x27;).innerHTML = &#x27;&#x27;;
+});
+
+// ==================== jQUERY ====================
+$(document).ready(function() {
+  // 1. SHOW / HIDE (2 Marks) - $(&quot;#id&quot;) selector + click()
+  $(&#x27;#toggleInstructionsBtn&#x27;).click(function() {
+    $(&#x27;#instructions&#x27;).toggle();
+    $(this).text($(this).text().indexOf(&#x27;Hide&#x27;) === 0 ? &#x27;Show Instructions&#x27; : &#x27;Hide Instructions&#x27;);
+  });
+
+  // 2. jQuery EFFECT (2 Marks) - slideToggle()
+  $(&#x27;#toggleDetailsBtn&#x27;).click(function() {
+    $(&#x27;#eventDetails&#x27;).slideToggle(400);
+    $(this).text($(this).text().indexOf(&#x27;Show&#x27;) === 0 ? &#x27;Hide Event Details ▲&#x27; : &#x27;Show Event Details ▼&#x27;);
+  });
+
+  // 3. DYNAMIC CONTENT (2 Marks) - add to list + update element with jQuery
+  var count = 0;
+  $(&#x27;#addEventBtn&#x27;).click(function() {
+    var name = $(&#x27;#studentName&#x27;).val().trim();
+    var eventName = $(&#x27;#eventSelect&#x27;).val();
+    if (name === &#x27;&#x27; || eventName === &#x27;&#x27;) {
+      $(&#x27;#messageArea&#x27;).html(&#x27;&lt;div class=&quot;alert alert-warning&quot;&gt;&lt;strong&gt;⚠️ Please enter your name and select an event first, then click “Add to My Events”.&lt;/strong&gt;&lt;/div&gt;&#x27;);
+      return;
+    }
+    if (count === 0) { $(&#x27;#myEventsList&#x27;).empty(); }
+    count++;
+    $(&#x27;#myEventsList&#x27;).append(&#x27;&lt;li class=&quot;list-group-item event-item&quot;&gt;✅ &lt;strong&gt;&#x27; + eventName + &#x27;&lt;/strong&gt; — &#x27; + name + &#x27;&lt;/li&gt;&#x27;);
+    $(&#x27;#eventCount&#x27;).text(count);
+    $(&#x27;#messageArea&#x27;).html(&#x27;&lt;div class=&quot;alert alert-info&quot;&gt;&lt;strong&gt;Added!&lt;/strong&gt; &#x27; + eventName + &#x27; was added to your list. Total events: &#x27; + count + &#x27;&lt;/div&gt;&#x27;);
+    // fadeIn effect on the new item
+    $(&#x27;#myEventsList li:last&#x27;).hide().fadeIn(600);
+  });
+
+  // 4. EVENT HANDLING &amp; SELECTORS (2 Marks) - mouseover() + $(&quot;.class&quot;) selector
+  $(&#x27;.event-item&#x27;).mouseover(function() {
+    $(this).css(&#x27;background-color&#x27;, &#x27;#dbeafe&#x27;);
+  });
+  // For dynamically added items, use delegation
+  $(document).on(&#x27;mouseover&#x27;, &#x27;.event-item&#x27;, function() {
+    $(this).css(&#x27;background-color&#x27;, &#x27;#dbeafe&#x27;);
+  });
+  $(document).on(&#x27;mouseout&#x27;, &#x27;.event-item&#x27;, function() {
+    $(this).css(&#x27;background-color&#x27;, &#x27;&#x27;);
+  });
+  // mouseover on heading changes its appearance
+  $(&#x27;#mainTitle&#x27;).mouseover(function() {
+    $(this).css(&#x27;letter-spacing&#x27;, &#x27;1px&#x27;);
+  });
+});
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+        </div>
+      </div>
+
+      <footer class="text-center mt-4 small">Student Event Registration Component — HTML • CSS • Bootstrap • JavaScript • jQuery</footer>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ==================== JAVASCRIPT (Vanilla JS) ====================
+// 1. INPUT VALIDATION (2 Marks) + 2. DYNAMIC MESSAGE (2 Marks)
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var name = document.getElementById('studentName').value.trim();
+  var email = document.getElementById('studentEmail').value.trim();
+  var eventName = document.getElementById('eventSelect').value;
+  var msg = document.getElementById('messageArea');
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (name === '' || email === '') {
+    msg.innerHTML = '<div class="alert alert-danger"><strong>❌ Error:</strong> Please fill in both your Name and Email. Required fields cannot be empty.</div>';
+    return;
+  }
+  if (!emailPattern.test(email)) {
+    msg.innerHTML = '<div class="alert alert-danger"><strong>❌ Error:</strong> Please enter a valid email address, e.g. name@university.edu.pk</div>';
+    return;
+  }
+  if (eventName === '') {
+    msg.innerHTML = '<div class="alert alert-danger"><strong>❌ Error:</strong> Please select an event from the dropdown.</div>';
+    return;
+  }
+  // Success - personalised dynamic message
+  msg.innerHTML = '<div class="alert alert-success"><strong>🎉 Registration Successful!</strong><br>Welcome, <strong>' + name + '</strong>! You have successfully registered for <strong>' + eventName + '</strong>. A confirmation will be sent to <strong>' + email + '</strong>.</div>';
+});
+
+// 3. STYLE MANIPULATION (1 Mark) - Vanilla JS, cycles card theme
+var themes = ['theme-1', 'theme-2', 'theme-3', 'theme-4'];
+var themeIndex = 0;
+document.getElementById('themeBtn').addEventListener('click', function() {
+  var card = document.getElementById('registrationCard');
+  card.classList.remove(themes[themeIndex]);
+  themeIndex = (themeIndex + 1) % themes.length;
+  card.classList.add(themes[themeIndex]);
+  document.getElementById('mainTitle').style.color = themeIndex === 1 ? '#fbbf24' : '';
+});
+
+// Reset button (Vanilla JS)
+document.getElementById('resetBtn').addEventListener('click', function() {
+  document.getElementById('registrationForm').reset();
+  document.getElementById('messageArea').innerHTML = '';
+});
+
+// ==================== jQUERY ====================
+$(document).ready(function() {
+  // 1. SHOW / HIDE (2 Marks) - $("#id") selector + click()
+  $('#toggleInstructionsBtn').click(function() {
+    $('#instructions').toggle();
+    $(this).text($(this).text().indexOf('Hide') === 0 ? 'Show Instructions' : 'Hide Instructions');
+  });
+
+  // 2. jQuery EFFECT (2 Marks) - slideToggle()
+  $('#toggleDetailsBtn').click(function() {
+    $('#eventDetails').slideToggle(400);
+    $(this).text($(this).text().indexOf('Show') === 0 ? 'Hide Event Details ▲' : 'Show Event Details ▼');
+  });
+
+  // 3. DYNAMIC CONTENT (2 Marks) - add to list + update element with jQuery
+  var count = 0;
+  $('#addEventBtn').click(function() {
+    var name = $('#studentName').val().trim();
+    var eventName = $('#eventSelect').val();
+    if (name === '' || eventName === '') {
+      $('#messageArea').html('<div class="alert alert-warning"><strong>⚠️ Please enter your name and select an event first, then click “Add to My Events”.</strong></div>');
+      return;
+    }
+    if (count === 0) { $('#myEventsList').empty(); }
+    count++;
+    $('#myEventsList').append('<li class="list-group-item event-item">✅ <strong>' + eventName + '</strong> — ' + name + '</li>');
+    $('#eventCount').text(count);
+    $('#messageArea').html('<div class="alert alert-info"><strong>Added!</strong> ' + eventName + ' was added to your list. Total events: ' + count + '</div>');
+    // fadeIn effect on the new item
+    $('#myEventsList li:last').hide().fadeIn(600);
+  });
+
+  // 4. EVENT HANDLING & SELECTORS (2 Marks) - mouseover() + $(".class") selector
+  $('.event-item').mouseover(function() {
+    $(this).css('background-color', '#dbeafe');
+  });
+  // For dynamically added items, use delegation
+  $(document).on('mouseover', '.event-item', function() {
+    $(this).css('background-color', '#dbeafe');
+  });
+  $(document).on('mouseout', '.event-item', function() {
+    $(this).css('background-color', '');
+  });
+  // mouseover on heading changes its appearance
+  $('#mainTitle').mouseover(function() {
+    $(this).css('letter-spacing', '1px');
+  });
+});
+</script>
+</body>
+</html>
